@@ -1,0 +1,11 @@
+from sqlalchemy.orm import sessionmaker
+
+# Create a session
+Session = sessionmaker(bind=engine)
+session = Session()
+
+# Query the database for FITS files with a specific keyword in the header
+results = session.query(FitsTable).filter(FitsTable.keywords.contains('OBJECT')).all()
+
+for result in results:
+    print(result.filepath, result.keywords)
