@@ -1,0 +1,2 @@
+# astroSQL-manual-
+Նմուշ
