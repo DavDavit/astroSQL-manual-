@@ -1,0 +1,23 @@
+import os
+import astroSQL
+from astroSQL import FitsTable
+from sqlalchemy import create_engine
+
+# Define the path to your FITS files
+fits_dir = 'path_to_your_fits_files'
+
+# Create a database engine (SQLite in this example)
+engine = create_engine('sqlite:///astro_data.db')
+
+# Create a FitsTable object
+fits_table = FitsTable(engine)
+
+# Loop through FITS files in the specified directory and add their headers to the database
+for root, dirs, files in os.walk(fits_dir):
+    for file in files:
+        if file.endswith('.fits'):
+            fits_path = os.path.join(root, file)
+            fits_table.add_fits(fits_path)
+
+# Commit the changes to the database
+fits_table.commit()
